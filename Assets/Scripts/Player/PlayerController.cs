@@ -103,9 +103,9 @@ public class PlayerController : MonoBehaviour
             CheckForRopeInteraction();
             CheckForRestart();
 
-            if (gameObject.transform.position.y < -15){
+           /*  if (gameObject.transform.position.y < -15){
                 RestartScene();
-            }
+            } */
         }
            
         
@@ -329,15 +329,30 @@ public class PlayerController : MonoBehaviour
         } */
     }
     public GameObject rodar;
+    public GameObject camara;
+    public GameObject player;
+    private bool rodado=false;
     private void Rodar(){
-        if (rodar.transform.position.y == -22){
+        if (rodado == true){
+            camara.transform.rotation = Quaternion.Euler(0, 0, 0);
+            player.transform.rotation = Quaternion.Euler(0, 0, 0);
+             player.GetComponent<Rigidbody2D>().gravityScale = 8;
+             rodado =false;
+        }else {
+             camara.transform.rotation = Quaternion.Euler(180, 0, 0);
+                player.transform.rotation = Quaternion.Euler(180, 0, 0);
+                player.GetComponent<Rigidbody2D>().gravityScale = -8;
+                rodado=true;
+        }
+
+       /*  if (rodar.transform.position.y == -20){
             rodar.transform.position = new Vector3(rodar.transform.position.x, 0, rodar.transform.position.z);
         rodar.transform.rotation = Quaternion.Euler(0, rodar.transform.rotation.y, rodar.transform.rotation.z);
         }
         else{
-            rodar.transform.position = new Vector3(rodar.transform.position.x, -22, rodar.transform.position.z);
+            rodar.transform.position = new Vector3(rodar.transform.position.x, -20, rodar.transform.position.z);
         rodar.transform.rotation = Quaternion.Euler(180, rodar.transform.rotation.y, rodar.transform.rotation.z);
-        }
+        } */
         
     }
 

@@ -1160,6 +1160,16 @@ PrefabInstance:
       objectReference: {fileID: 152771745}
     - target: {fileID: 2011612969524986327, guid: bae6a535991008842947de96499e78a0,
         type: 3}
+      propertyPath: camara
+      value: 
+      objectReference: {fileID: 1558655659}
+    - target: {fileID: 2011612969524986327, guid: bae6a535991008842947de96499e78a0,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 761762969}
+    - target: {fileID: 2011612969524986327, guid: bae6a535991008842947de96499e78a0,
+        type: 3}
       propertyPath: menuPausa
       value: 
       objectReference: {fileID: 1093252494}
@@ -1944,6 +1954,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &761762969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2011612969524986322, guid: bae6a535991008842947de96499e78a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 283279870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &775137167
 GameObject:
   m_ObjectHideFlags: 0
