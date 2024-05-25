@@ -201,7 +201,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player AC
+  m_Name: Player AC 1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isWalking
@@ -298,7 +298,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 3c064222ee9942647b31bb5850c1e8ce, type: 2}
+    m_Motion: {fileID: 7400000, guid: b96d637fd8a953f41a9347812cd5c5a5, type: 2}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -306,7 +306,7 @@ BlendTree:
     m_DirectBlendParameter: yVelocity
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: f1baec08bf53879459d8e20c81366a55, type: 2}
+    m_Motion: {fileID: 7400000, guid: 4fb11c073bec8764f9887896c1e97a2d, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -314,7 +314,7 @@ BlendTree:
     m_DirectBlendParameter: yVelocity
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 1f252e8a3496084418def34964f96ed1, type: 2}
+    m_Motion: {fileID: 7400000, guid: eef0cddf04ffd4e49b4e7da5964a7698, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -511,7 +511,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 55c071c421ac9b04883dd0af0cf9036e, type: 2}
+  m_Motion: {fileID: 7400000, guid: fd29d9c06ee25a64bb019dbc112b665a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -565,7 +565,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2b14cc97bbfb69240ae2b707dbd68e24, type: 2}
+  m_Motion: {fileID: 7400000, guid: 608458c7fc87c814b90cf3af2d7536ad, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -592,7 +592,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2533a82f12912994b8ef2a2309cc0132, type: 2}
+  m_Motion: {fileID: 7400000, guid: fe6e297a101086048812d05b69b43c4f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -609,7 +609,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102524985459033884}
-    m_Position: {x: 650, y: 130, z: 0}
+    m_Position: {x: 650, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102914295199708790}
     m_Position: {x: 650, y: 250, z: 0}
