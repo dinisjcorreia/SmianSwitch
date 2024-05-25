@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         if (menuPausa.gameObject.activeInHierarchy==false)
         {
-             CheckInput();
+            CheckInput();
             CheckMovementDirection();
             UpdateAnimations();
             CheckIfCanJump();
@@ -260,12 +260,26 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isIdle", false);
         } */
     }
-
+    public GameObject rodar;
+    private void Rodar(){
+        if (rodar.transform.position.y == -23){
+            rodar.transform.position = new Vector3(rodar.transform.position.x, 0, rodar.transform.position.z);
+        rodar.transform.rotation = Quaternion.Euler(0, rodar.transform.rotation.y, rodar.transform.rotation.z);
+        }
+        else{
+            rodar.transform.position = new Vector3(rodar.transform.position.x, -23, rodar.transform.position.z);
+        rodar.transform.rotation = Quaternion.Euler(180, rodar.transform.rotation.y, rodar.transform.rotation.z);
+        }
+        
+    }
     private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
-       
+       if (Input.GetKeyDown(KeyCode.T))
+        {
+            Rodar();
+        }
         if (Input.GetButtonDown("Jump"))
         {
             if(isGrounded || (amountOfJumpsLeft > 0 && !isTouchingWall))
