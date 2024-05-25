@@ -326,12 +326,12 @@ public class PlayerController : MonoBehaviour
     }
     public GameObject rodar;
     private void Rodar(){
-        if (rodar.transform.position.y == -23){
+        if (rodar.transform.position.y == -20){
             rodar.transform.position = new Vector3(rodar.transform.position.x, 0, rodar.transform.position.z);
         rodar.transform.rotation = Quaternion.Euler(0, rodar.transform.rotation.y, rodar.transform.rotation.z);
         }
         else{
-            rodar.transform.position = new Vector3(rodar.transform.position.x, -23, rodar.transform.position.z);
+            rodar.transform.position = new Vector3(rodar.transform.position.x, -20, rodar.transform.position.z);
         rodar.transform.rotation = Quaternion.Euler(180, rodar.transform.rotation.y, rodar.transform.rotation.z);
         }
         
