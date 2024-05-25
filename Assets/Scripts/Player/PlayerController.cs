@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -71,6 +70,10 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask whatIsGround;
 
+    public GameObject plataforma;
+    public GameObject menuPausa;
+  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,13 +87,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInput();
-        CheckMovementDirection();
-        UpdateAnimations();
-        CheckIfCanJump();
-        CheckIfWallSliding();
-        CheckJump();
-        CheckDash();
+        if (menuPausa.gameObject.activeInHierarchy==false)
+        {
+             CheckInput();
+            CheckMovementDirection();
+            UpdateAnimations();
+            CheckIfCanJump();
+            CheckIfWallSliding();
+            CheckJump();
+            CheckDash();
+        }
+           
+        
+        
     }
 
     private void FixedUpdate()
@@ -151,6 +160,16 @@ public class PlayerController : MonoBehaviour
             setParentNextFrame = true;
             platform = collision.gameObject.GetComponent<Rigidbody2D>();
         }
+
+         if (collision.gameObject.CompareTag("Botao"))
+        {
+            plataforma.SetActive(true);
+        }
+
+        if (collision.gameObject.CompareTag("Final"))
+        {
+            SceneManager.LoadScene("Primeiro");
+        }
     }
 
     private void LateUpdate()
@@ -169,6 +188,11 @@ public class PlayerController : MonoBehaviour
             isOnPlatform = false;
             transform.parent = null;
             platform = null;
+        }
+
+          if (collision.gameObject.CompareTag("Botao"))
+        {
+            plataforma.SetActive(false);
         }
     }
 
@@ -224,7 +248,7 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("yVelocity", rb.velocity.y);
         anim.SetBool("isWallSliding", isWallSliding);
 
-        // Check if the player is on the platform and not moving
+       /*  // Check if the player is on the platform and not moving
         if (isOnPlatform && !isWalking && isGrounded)
         {
             // Play the idle animation
@@ -234,13 +258,14 @@ public class PlayerController : MonoBehaviour
         {
             // Otherwise, don't play the idle animation
             anim.SetBool("isIdle", false);
-        }
+        } */
     }
 
     private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
+       
         if (Input.GetButtonDown("Jump"))
         {
             if(isGrounded || (amountOfJumpsLeft > 0 && !isTouchingWall))

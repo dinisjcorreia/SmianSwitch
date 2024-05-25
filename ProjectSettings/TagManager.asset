@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - MovingPlatform
   - Ladder
+  - Botao
+  - Final
   layers:
   - Default
   - TransparentFX
