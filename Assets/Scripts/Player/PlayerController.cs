@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
                 RestartScene();
                 }
 
-             if (gameObject.transform.position.y > 1){
+             if (gameObject.transform.position.y > 2.5){
                 RestartScene();
                 }
             }
@@ -284,7 +284,12 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Final"))
         {
-            SceneManager.LoadScene("Main");
+            if (SceneManager.GetActiveScene().name == "Primeiro"){
+                 SceneManager.LoadScene("Main");
+            } else if (SceneManager.GetActiveScene().name == "Main"){
+                 SceneManager.LoadScene("Cidade");
+            }
+           
         }
     }
 

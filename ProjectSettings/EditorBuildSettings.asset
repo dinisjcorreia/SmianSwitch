@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PVP.unity
     guid: eb02ca7f3ae534e67be841365af3e59b
+  - enabled: 1
+    path: Assets/Scenes/CIdade.unity
+    guid: 36da20d2a4184e84ca5f6d15bdb928e7
   m_configObjects: {}
