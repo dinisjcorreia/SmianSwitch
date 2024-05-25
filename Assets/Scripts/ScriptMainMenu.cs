@@ -36,7 +36,7 @@ public class ScriptMainMenu : MonoBehaviour
     }
 
      public void Jogar(){
-        SceneManager.LoadScene("Primeiro");
+        SceneManager.LoadScene("Main");
     }
 
     
