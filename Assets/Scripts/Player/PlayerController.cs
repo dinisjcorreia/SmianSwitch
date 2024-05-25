@@ -129,9 +129,11 @@ public class PlayerController : MonoBehaviour
             }
 
             if (SceneManager.GetActiveScene().name == "Main" ){
-                 if (gameObject.transform.position.y < 3){
+                 if (gameObject.transform.position.y < 1){
                 RestartScene();
             }
+
+            
 
             
 
