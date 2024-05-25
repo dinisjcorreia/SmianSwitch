@@ -64,6 +64,8 @@ public class PlayerCombatController : MonoBehaviour
                 anim.SetBool("attack1", true);
                 anim.SetBool("firstAttack", isFirstAttack);
                 anim.SetBool("isAttacking", isAttacking);
+
+                Debug.Log("Attack triggered: " + isFirstAttack);
             }
         }
 
