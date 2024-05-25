@@ -143,6 +143,14 @@ public class PlayerController : MonoBehaviour
             
   
             }
+
+             if (SceneManager.GetActiveScene().name == "PVP" ){
+                 if (gameObject.transform.position.y < -10){
+                RestartScene();
+            }
+            
+  
+            }
             
         }
            

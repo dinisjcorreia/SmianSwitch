@@ -65,6 +65,10 @@ public class BasicEnemyController : MonoBehaviour
     private Rigidbody2D aliveRb;
     private Animator aliveAnim;
 
+     private Vector2 previousPosition;
+    private Vector2 currentPosition;
+    private bool isMovingRight;
+
     private void Start()
     {
         alive = transform.Find("Alive").gameObject;
@@ -73,7 +77,13 @@ public class BasicEnemyController : MonoBehaviour
 
         currentHealth = maxHealth;
         facingDirection = 1;
+
+        previousPosition = transform.position;
     }
+
+ public GameObject player;
+    private float speed=3f;
+    private float distance;
 
     private void Update()
     {
@@ -89,6 +99,47 @@ public class BasicEnemyController : MonoBehaviour
                 UpdateDeadState();
                 break;
         }
+        distance = player.transform.position.x - transform.position.x;
+        Vector2 direction = player.transform.position - transform.position;
+        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+        
+          currentPosition = transform.position;
+
+        // Check if the object is moving to the right or left
+        if (currentPosition.x > previousPosition.x)
+        {
+            isMovingRight = true;
+            Debug.Log("Moving Right");
+             StartCoroutine(moveresquerda());
+        }
+        else if (currentPosition.x < previousPosition.x)
+        {
+            isMovingRight = false;
+            Debug.Log("Moving Left");
+            StartCoroutine(moverdireita());
+        }
+        else
+        {
+            // The object is not moving
+            Debug.Log("Not Moving");
+        }
+
+        // Update the previous position to the current position for the next frame
+        previousPosition = currentPosition;
+      
+       
+    }
+
+    IEnumerator moverdireita()
+    {
+    yield return new WaitForSeconds(0.2f);
+        alive.transform.rotation = Quaternion.Euler(0, 180 ,0);
+    }
+
+     IEnumerator moveresquerda()
+    {
+    yield return new WaitForSeconds(0.2f);
+        alive.transform.rotation = Quaternion.Euler(0, 0,0);
     }
 
     //--WALKING STATE--------------------------------------------------------------------------------
@@ -97,6 +148,8 @@ public class BasicEnemyController : MonoBehaviour
     {
 
     }
+
+   
 
     private void UpdateMovingState()
     {
@@ -111,8 +164,8 @@ public class BasicEnemyController : MonoBehaviour
         }
         else
         {
-            movement.Set(movementSpeed * facingDirection, aliveRb.velocity.y);
-            aliveRb.velocity = movement;
+          /*   movement.Set(movementSpeed * facingDirection, aliveRb.velocity.y);
+            aliveRb.velocity = movement; */
         }
     }
 
