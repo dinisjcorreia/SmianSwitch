@@ -6543,7 +6543,6 @@ GameObject:
   - component: {fileID: 1485743548}
   - component: {fileID: 1485743547}
   - component: {fileID: 1485743546}
-  - component: {fileID: 1485743549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6659,18 +6658,6 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1485743549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485743544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0763fa993bef034da52121a7d49bf9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1558655659
 GameObject:
   m_ObjectHideFlags: 0
@@ -6759,7 +6746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomSpeed: 2
   minOrthoSize: 5
-  maxOrthoSize: 15
+  maxOrthoSize: 8
 --- !u!114 &1558655663
 MonoBehaviour:
   m_ObjectHideFlags: 0
