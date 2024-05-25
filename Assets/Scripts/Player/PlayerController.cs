@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -89,6 +90,10 @@ public class PlayerController : MonoBehaviour
         CheckIfWallSliding();
         CheckJump();
         CheckDash();
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     private void FixedUpdate()

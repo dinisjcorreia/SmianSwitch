@@ -35,9 +35,11 @@ public class ScriptMainMenu : MonoBehaviour
         SceneManager.LoadScene("Definições");
     }
 
-     public void Niveis(){
-        SceneManager.LoadScene("Niveis");
+     public void Jogar(){
+        SceneManager.LoadScene("Main");
     }
+
+    
 
    
 }

@@ -440,7 +440,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 840354684}
         m_TargetAssemblyTypeName: ScriptMainMenu, Assembly-CSharp
-        m_MethodName: Niveis
+        m_MethodName: Jogar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
