@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - MovingPlatform
+  - Ladder
   layers:
   - Default
   - TransparentFX
