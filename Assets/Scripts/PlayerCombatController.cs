@@ -37,16 +37,20 @@ public class PlayerCombatController : MonoBehaviour
         CheckCombatInput();
         CheckAttacks();
     }
-
+    public GameObject conversa;
+    public GameObject pausa;
     private void CheckCombatInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (combatEnabled)
             {
-                //Attempt combat
+                if (conversa.activeSelf==false && pausa.activeSelf==false){
+                     //Attempt combat
                 gotInput = true;
                 lastInputTime = Time.time;
+                }
+               
             }
         }
     }

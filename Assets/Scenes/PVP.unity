@@ -728,6 +728,12 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &266090916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1128801298162060152, guid: 924a746a90c4348af887bffc93a2d279,
+    type: 3}
+  m_PrefabInstance: {fileID: 1292120569}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &271348194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,6 +1672,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9073507124414170290, guid: 660213a9256064541b10dae50ed188d7,
         type: 3}
+      propertyPath: pausa
+      value: 
+      objectReference: {fileID: 1108410590}
+    - target: {fileID: 9073507124414170290, guid: 660213a9256064541b10dae50ed188d7,
+        type: 3}
       propertyPath: vida1
       value: 
       objectReference: {fileID: 1049204816}
@@ -1694,6 +1705,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 654941006}
+    - target: {fileID: 9073507124414170290, guid: 660213a9256064541b10dae50ed188d7,
+        type: 3}
+      propertyPath: conversa
+      value: 
+      objectReference: {fileID: 266090916}
     - target: {fileID: 9073507124414170290, guid: 660213a9256064541b10dae50ed188d7,
         type: 3}
       propertyPath: maxHealth
@@ -3175,6 +3191,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2011612969524986325, guid: d8295b552e35a4c5ab943c3d96c9800b,
+        type: 3}
+      propertyPath: pausa
+      value: 
+      objectReference: {fileID: 1108410590}
+    - target: {fileID: 2011612969524986325, guid: d8295b552e35a4c5ab943c3d96c9800b,
+        type: 3}
+      propertyPath: conversa
+      value: 
+      objectReference: {fileID: 266090916}
     - target: {fileID: 2011612969524986327, guid: d8295b552e35a4c5ab943c3d96c9800b,
         type: 3}
       propertyPath: camara
@@ -3304,7 +3330,7 @@ PrefabInstance:
     - target: {fileID: 1128801298162060152, guid: 924a746a90c4348af887bffc93a2d279,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2647594963065415055, guid: 924a746a90c4348af887bffc93a2d279,
         type: 3}

@@ -85,6 +85,8 @@ public class BasicEnemyController : MonoBehaviour
     private float speed=3f;
     private float distance;
 
+  public GameObject conversa;
+    public GameObject pausa;
     private void Update()
     {
         switch (currentState)
@@ -99,7 +101,9 @@ public class BasicEnemyController : MonoBehaviour
                 UpdateDeadState();
                 break;
         }
-        distance = player.transform.position.x - transform.position.x;
+
+        if (conversa.activeSelf==false && pausa.activeSelf==false){
+            distance = player.transform.position.x - transform.position.x;
         Vector2 direction = player.transform.position - transform.position;
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
         
@@ -126,6 +130,8 @@ public class BasicEnemyController : MonoBehaviour
 
         // Update the previous position to the current position for the next frame
         previousPosition = currentPosition;
+        }
+        
       
        
     }
