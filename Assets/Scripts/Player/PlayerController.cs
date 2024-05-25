@@ -132,12 +132,16 @@ public class PlayerController : MonoBehaviour
                  if (gameObject.transform.position.y < 1){
                 RestartScene();
             }
-
             
+  
+            }
 
+              if (SceneManager.GetActiveScene().name == "Terceiro" ){
+                 if (gameObject.transform.position.y < -2){
+                RestartScene();
+            }
             
-
-            
+  
             }
             
         }
@@ -287,7 +291,9 @@ public class PlayerController : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Primeiro"){
                  SceneManager.LoadScene("Main");
             } else if (SceneManager.GetActiveScene().name == "Main"){
-                 SceneManager.LoadScene("Cidade");
+                 SceneManager.LoadScene("Terceiro");
+            } else if (SceneManager.GetActiveScene().name == "Terceiro"){
+                 SceneManager.LoadScene("PVP");
             }
            
         }
