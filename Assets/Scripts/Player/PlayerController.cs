@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -89,6 +90,7 @@ public class PlayerController : MonoBehaviour
         CheckIfWallSliding();
         CheckJump();
         CheckDash();
+        CheckForRestart();
     }
 
     private void FixedUpdate()
@@ -112,6 +114,19 @@ public class PlayerController : MonoBehaviour
         {
             isWallSliding = false;
         }
+    }
+
+    private void CheckForRestart()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartScene();
+        }
+    }
+
+    private void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public bool GetDashStatus()
@@ -205,9 +220,21 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimations()
     {
         anim.SetBool("isWalking", isWalking);
-        anim.SetBool("isGrounded", isGrounded || isOnPlatform);
+        anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("yVelocity", rb.velocity.y);
         anim.SetBool("isWallSliding", isWallSliding);
+
+        // Check if the player is on the platform and not moving
+        if (isOnPlatform && !isWalking && isGrounded)
+        {
+            // Play the idle animation
+            anim.SetBool("isIdle", true);
+        }
+        else
+        {
+            // Otherwise, don't play the idle animation
+            anim.SetBool("isIdle", false);
+        }
     }
 
     private void CheckInput()
@@ -343,7 +370,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void NormalJump()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Check if the player collided with a teleportation point
+        if (collision.CompareTag("Teleport"))
+        {
+            // Get the Teleport component from the collided object
+            Teleport teleport = collision.GetComponent<Teleport>();
+
+            // If the Teleport component exists, move the player to the teleport destination
+            if (teleport != null)
+            {
+                transform.position = teleport.GetDestination().position;
+            }
+        }
+
+    }
+
+        private void NormalJump()
     {
         if (canNormalJump)
         {
@@ -377,8 +421,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-
-    private void ApplyMovement()
+        private void ApplyMovement()
     {
 
         if (!isGrounded && !isWallSliding && movementInputDirection == 0)
