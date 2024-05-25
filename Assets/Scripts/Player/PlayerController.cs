@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private float dashTimeLeft;
     private float lastImageXpos;
     private float lastDash = -100f;
+    private HingeJoint2D hingeJoint;
+    public float grabRange = 0.5f;
 
     private int amountOfJumpsLeft;
     private int facingDirection = 1;
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
         amountOfJumpsLeft = amountOfJumps;
         wallHopDirection.Normalize();
         wallJumpDirection.Normalize();
+        hingeJoint = gameObject.AddComponent<HingeJoint2D>();
+        hingeJoint.enabled = false;
     }
 
     // Update is called once per frame
@@ -96,6 +100,8 @@ public class PlayerController : MonoBehaviour
             CheckIfWallSliding();
             CheckJump();
             CheckDash();
+            CheckForRopeInteraction();
+            CheckForRestart();
         }
            
         
@@ -112,6 +118,46 @@ public class PlayerController : MonoBehaviour
             rb.velocity += platform.velocity;
         }
     }
+
+    private void CheckForRopeInteraction()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            AttachToRope();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            DetachFromRope();
+        }
+    }
+
+    void AttachToRope()
+    {
+        if (hingeJoint.enabled) return;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, grabRange);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject.CompareTag("RopeSegment"))
+            {
+                hingeJoint.connectedBody = collider.GetComponent<Rigidbody2D>();
+                hingeJoint.enabled = true;
+                rb.velocity = Vector2.zero;  // Stop player movement when attaching
+                rb.gravityScale = 0;  // Optional: Disable gravity while on rope
+                break;
+            }
+        }
+    }
+
+        void DetachFromRope()
+        {
+            hingeJoint.enabled = false;
+            hingeJoint.connectedBody = null;
+            rb.gravityScale = 1;  // Restore default gravity
+            rb.drag = 0;  // Restore default drag
+            rb.angularDrag = 0.05f;  // Restore default angular drag (adjust as needed)
+        }
 
     private void CheckIfWallSliding()
     {
@@ -135,8 +181,26 @@ public class PlayerController : MonoBehaviour
 
     private void RestartScene()
     {
+        anim.SetBool("Restart", true);
+        float restartDelay = GetRestartAnimationDuration();
+        StartCoroutine(RestartWithDelay(restartDelay));
+    }
+    private IEnumerator RestartWithDelay(float delay)
+    {
+        // Wait for the animation to finish
+        yield return new WaitForSeconds(delay);
+
+        // Restart the scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    private float GetRestartAnimationDuration()
+    {
+        // Retrieve the duration of the restart animation
+        AnimatorClipInfo[] clipInfo = anim.GetCurrentAnimatorClipInfo(0);
+        return clipInfo[0].clip.length;
+    }
+
 
     public bool GetDashStatus()
     {

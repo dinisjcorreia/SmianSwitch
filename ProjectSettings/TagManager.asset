@@ -9,6 +9,7 @@ TagManager:
   - Ladder
   - Botao
   - Final
+  - RopeSegment
   layers:
   - Default
   - TransparentFX
