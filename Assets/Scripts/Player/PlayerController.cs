@@ -5,10 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public float health;
+    public float maxHealth = 3f;
     private float movementInputDirection;
     private float jumpTimer;
     private float turnTimer;
+    private float knockbackStartTime;
+    [SerializeField]
+    private float knockbackDuration;
+    private bool knockback;
+
+    [SerializeField]
+    private Vector2 knockbackSpeed;
     private float wallJumpTimer;
     private float dashTimeLeft;
     private float lastImageXpos;
@@ -86,11 +94,17 @@ public class PlayerController : MonoBehaviour
         wallJumpDirection.Normalize();
         hingeJoint = gameObject.AddComponent<HingeJoint2D>();
         hingeJoint.enabled = false;
+
+        health= 3f;
     }
     public GameObject dialogueBox;
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0){
+            RestartScene();
+        }
+
         if (menuPausa.gameObject.activeInHierarchy==false && dialogueBox.gameObject.activeInHierarchy==false)
         {
             CheckInput();
@@ -102,10 +116,28 @@ public class PlayerController : MonoBehaviour
             CheckDash();
             CheckForRopeInteraction();
             CheckForRestart();
+            CheckKnockback();
 
-           /*  if (gameObject.transform.position.y < -15){
+            if (SceneManager.GetActiveScene().name == "Primeiro" || SceneManager.GetActiveScene().name == "BOSS"){
+                 if (gameObject.transform.position.y < -25){
                 RestartScene();
-            } */
+                }
+
+             if (gameObject.transform.position.y > 1){
+                RestartScene();
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name == "Main" ){
+                 if (gameObject.transform.position.y < 3){
+                RestartScene();
+            }
+
+            
+
+            
+            }
+            
         }
            
         
@@ -211,7 +243,21 @@ public class PlayerController : MonoBehaviour
         return isDashing;
     }
 
+     public void Knockback(int direction)
+    {
+        knockback = true;
+        knockbackStartTime = Time.time;
+        rb.velocity = new Vector2(knockbackSpeed.x * direction, knockbackSpeed.y);
+    }
 
+      private void CheckKnockback()
+    {
+        if(Time.time >= knockbackStartTime + knockbackDuration && knockback)
+        {
+            knockback = false;
+            rb.velocity = new Vector2(0.0f, rb.velocity.y);
+        }
+    }
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
@@ -236,7 +282,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Final"))
         {
-            SceneManager.LoadScene("Primeiro");
+            SceneManager.LoadScene("Main");
         }
     }
 
@@ -547,11 +593,11 @@ public class PlayerController : MonoBehaviour
         private void ApplyMovement()
     {
 
-        if (!isGrounded && !isWallSliding && movementInputDirection == 0)
+        if (!isGrounded && !isWallSliding && movementInputDirection == 0 && !knockback)
         {
             rb.velocity = new Vector2(rb.velocity.x * airDragMultiplier, rb.velocity.y);
         }
-        else if(canMove)
+        else if(canMove && !knockback)
         {
             rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
         }
@@ -565,7 +611,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     public void DisableFlip()
     {
         canFlip = false;
@@ -576,9 +621,9 @@ public class PlayerController : MonoBehaviour
         canFlip = true;
     }
 
-    private void Flip()
+     private void Flip()
     {
-        if (!isWallSliding && canFlip)
+        if (!isWallSliding && canFlip && !knockback)
         {
             facingDirection *= -1;
             isFacingRight = !isFacingRight;
