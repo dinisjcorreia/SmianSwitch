@@ -83,11 +83,11 @@ public class PlayerController : MonoBehaviour
         wallHopDirection.Normalize();
         wallJumpDirection.Normalize();
     }
-
+    public GameObject dialogueBox;
     // Update is called once per frame
     void Update()
     {
-        if (menuPausa.gameObject.activeInHierarchy==false)
+        if (menuPausa.gameObject.activeInHierarchy==false && dialogueBox.gameObject.activeInHierarchy==false)
         {
             CheckInput();
             CheckMovementDirection();
@@ -272,6 +272,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
     private void CheckInput()
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
