@@ -1,23 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
 {
-    [SerializeField]
-    private bool combatEnabled;
-    [SerializeField]
-    private float inputTimer, attack1Radius, attack1Damage;
-    [SerializeField]
-    private Transform attack1HitBoxPos;
-    [SerializeField]
-    private LayerMask whatIsDamageable;
-    
+    [SerializeField] private bool combatEnabled;
+    [SerializeField] private float inputTimer, attack1Radius, attack1Damage;
+    [SerializeField] private Transform attack1HitBoxPos;
+    [SerializeField] private LayerMask whatIsDamageable;
+
     private bool gotInput, isAttacking, isFirstAttack;
 
     private float lastInputTime = Mathf.NegativeInfinity;
-
-    private float[] attackDetails = new float[2];
 
     private Animator anim;
 
@@ -37,45 +29,35 @@ public class PlayerCombatController : MonoBehaviour
         CheckCombatInput();
         CheckAttacks();
     }
-    public GameObject conversa;
-    public GameObject pausa;
+
     private void CheckCombatInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (combatEnabled)
             {
-                if (conversa.activeSelf==false && pausa.activeSelf==false){
-                     //Attempt combat
                 gotInput = true;
                 lastInputTime = Time.time;
-                }
-               
             }
         }
     }
 
     private void CheckAttacks()
     {
-        if (gotInput)
+        if (gotInput && !isAttacking)
         {
-            //Perform Attack1
-            if (!isAttacking)
-            {
-                gotInput = false;
-                isAttacking = true;
-                isFirstAttack = !isFirstAttack;
-                anim.SetBool("attack1", true);
-                anim.SetBool("firstAttack", isFirstAttack);
-                anim.SetBool("isAttacking", isAttacking);
-
-                Debug.Log("Attack triggered: " + isFirstAttack);
-            }
+            gotInput = false;
+            isAttacking = true;
+            isFirstAttack = !isFirstAttack;
+            anim.SetBool("attack1", true);
+            anim.SetBool("firstAttack", isFirstAttack);
+            anim.SetBool("isAttacking", isAttacking);
+            Debug.Log("Attack triggered: " + isFirstAttack);
         }
 
-        if(Time.time >= lastInputTime + inputTimer)
+        if (Time.time >= lastInputTime + inputTimer)
         {
-            //Wait for new input
+            // Wait for new input
             gotInput = false;
         }
     }
@@ -84,13 +66,12 @@ public class PlayerCombatController : MonoBehaviour
     {
         Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attack1HitBoxPos.position, attack1Radius, whatIsDamageable);
 
-        attackDetails[0] = attack1Damage;
-        attackDetails[1] = transform.position.x;
+        float[] attackDetails = { attack1Damage, transform.position.x };
 
         foreach (Collider2D collider in detectedObjects)
         {
             collider.transform.parent.SendMessage("Damage", attackDetails);
-            //Instantiate hit particle
+            // Instantiate hit particle
         }
     }
 
@@ -105,26 +86,15 @@ public class PlayerCombatController : MonoBehaviour
     {
         if (!PC.GetDashStatus())
         {
-            int direction;
+            int direction = attackDetails[1] < transform.position.x ? 1 : -1;
 
             PS.DecreaseHealth(attackDetails[0]);
-
-            if (attackDetails[1] < transform.position.x)
-            {
-                direction = 1;
-            }
-            else
-            {
-                direction = -1;
-            }
-
             PC.Knockback(direction);
-        }        
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(attack1HitBoxPos.position, attack1Radius);
     }
-
 }
