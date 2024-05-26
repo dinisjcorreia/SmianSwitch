@@ -166,8 +166,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6d6675afb234cbfac4f1c99ea2fcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionAnimator: {fileID: 1685078751}
-  transitionDuration: 10
+  transitionImage: {fileID: 1685078752}
+  rotationSpeed: 500
+  maxRotationAngle: 500
+  scaleSpeed: 50
+  maxScale: 5000
+  transitionDuration: 0.01
 --- !u!1 &863940334
 GameObject:
   m_ObjectHideFlags: 0
