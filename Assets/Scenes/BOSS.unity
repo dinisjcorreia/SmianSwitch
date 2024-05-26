@@ -1236,6 +1236,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2011612969524986322, guid: 1e63559213f46f148991f32e86c2b553,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2011612969524986327, guid: 1e63559213f46f148991f32e86c2b553,
         type: 3}
       propertyPath: camara
