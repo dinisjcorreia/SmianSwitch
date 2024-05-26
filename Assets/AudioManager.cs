@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
         musicScenes.Add("Primeiro", musicClips[1]);
         musicScenes.Add("Main", musicClips[2]);
         musicScenes.Add("Terceiro", musicClips[3]);
-        musicScenes.Add("BOSS", musicClips[3]);
+        musicScenes.Add("BOSS", musicClips[4]);
     }
     private void OnEnable()
     {
