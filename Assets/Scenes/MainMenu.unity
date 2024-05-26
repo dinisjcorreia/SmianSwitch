@@ -1205,13 +1205,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f4078d660ff6d3c40a4f417aa50d277a, type: 3}
   - {fileID: 8300000, guid: 1214f51000b19044dbfdc3166c53e41f, type: 3}
   - {fileID: 8300000, guid: 6f1fbbe275eef3e42b6f13d72d2ab951, type: 3}
-  jumpSound: {fileID: 0}
+  - {fileID: 8300000, guid: 388dd3b8690623746bdd987347b52065, type: 3}
+  jumpSound: {fileID: 8300000, guid: 50a18135791f4b6419a92764725bafb1, type: 3}
   hitSound: {fileID: 8300000, guid: 661a26b0cc9366944b227874185bad53, type: 3}
-  punchSound: {fileID: 0}
-  swordSound: {fileID: 0}
-  dashSound: {fileID: 0}
-  buttonClickSound: {fileID: 8300000, guid: c57e799a06d012b4497547ce69e22684, type: 3}
-  subtitlesSound: {fileID: 0}
+  swordSound: {fileID: 8300000, guid: b1b365a578e3e8e4f81626ad554956ee, type: 3}
+  dashSound: {fileID: 8300000, guid: 046ab166dddc05f479ecaf623cbccd9e, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: 710abe43f3adf184cbf0e9d8eb815afa, type: 3}
 --- !u!1 &2126434607
 GameObject:
   m_ObjectHideFlags: 0

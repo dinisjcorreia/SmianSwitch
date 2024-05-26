@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
@@ -16,6 +16,12 @@ public class PlayerCombatController : MonoBehaviour
 
     private PlayerController PC;
     private PlayerStats PS;
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
 
     private void Start()
     {
@@ -64,7 +70,7 @@ public class PlayerCombatController : MonoBehaviour
             anim.SetBool("firstAttack", isFirstAttack);
             anim.SetBool("isAttacking", isAttacking);
             Debug.Log("Attack triggered: " + isFirstAttack);
-         
+            audioManager.PlaySound(audioManager.swordSound);
         }
 
         if (Time.time >= lastInputTime + inputTimer)
