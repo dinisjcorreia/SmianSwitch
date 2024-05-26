@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerCombatController : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class PlayerCombatController : MonoBehaviour
         CheckAttacks();
     }
 
+    public Animator animator;
+    public RuntimeAnimatorController macaco;
+    public RuntimeAnimatorController pessoa;
+    public RuntimeAnimatorController ninja;
+
+    private int i =0;
     private void CheckCombatInput()
     {
         if (Input.GetMouseButtonDown(0))
@@ -38,14 +45,18 @@ public class PlayerCombatController : MonoBehaviour
             {
                 gotInput = true;
                 lastInputTime = Time.time;
+               
             }
         }
     }
+
+
 
     private void CheckAttacks()
     {
         if (gotInput && !isAttacking)
         {
+            Debug.Log("entrei");
             gotInput = false;
             isAttacking = true;
             isFirstAttack = !isFirstAttack;
@@ -53,12 +64,14 @@ public class PlayerCombatController : MonoBehaviour
             anim.SetBool("firstAttack", isFirstAttack);
             anim.SetBool("isAttacking", isAttacking);
             Debug.Log("Attack triggered: " + isFirstAttack);
+         
         }
 
         if (Time.time >= lastInputTime + inputTimer)
         {
             // Wait for new input
             gotInput = false;
+             
         }
     }
 
@@ -77,9 +90,22 @@ public class PlayerCombatController : MonoBehaviour
 
     private void FinishAttack1()
     {
+        Debug.Log("finis");
         isAttacking = false;
         anim.SetBool("isAttacking", isAttacking);
         anim.SetBool("attack1", false);
+
+       
+    }
+
+    private void FinishAttack2()
+    {
+        Debug.Log("finis");
+        isAttacking = false;
+        anim.SetBool("isAttacking", isAttacking);
+        anim.SetBool("attack1", false);
+
+        
     }
 
     private void Damage(float[] attackDetails)

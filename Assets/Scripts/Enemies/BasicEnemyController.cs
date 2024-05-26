@@ -218,6 +218,10 @@ public class BasicEnemyController : MonoBehaviour
         isAttacking = true;
     }
 
+    public void pararAtaque(){
+        aliveAnim.SetBool("Attack", false);
+    }
+
     private void UpdateAttackingState()
     {
         if (aliveAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
