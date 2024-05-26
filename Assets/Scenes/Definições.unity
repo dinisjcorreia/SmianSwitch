@@ -835,6 +835,7 @@ MonoBehaviour:
   sliderVolume: {fileID: 2112619818}
   checkMusica: {fileID: 756871648}
   checkEfeitoSonoro: {fileID: 949839296}
+  audiolistener: {fileID: 24100000, guid: 13ccb750ffc42034c80e06ab716251f2, type: 2}
 --- !u!1 &863940334
 GameObject:
   m_ObjectHideFlags: 0

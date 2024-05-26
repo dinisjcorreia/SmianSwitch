@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class ScriptDefinições : MonoBehaviour
@@ -22,6 +23,7 @@ public class ScriptDefinições : MonoBehaviour
     public GameObject sliderVolume;
     public GameObject checkMusica;
     public GameObject checkEfeitoSonoro;
+    public AudioMixer audiolistener;
 
      string saveFilePath;
 
@@ -30,8 +32,10 @@ public class ScriptDefinições : MonoBehaviour
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
+private float volume;
     void Start()
     {
+      
        
         saveFilePath = Application.persistentDataPath + "/Settings.json";
         playerData = new Settings();
@@ -42,8 +46,33 @@ public class ScriptDefinições : MonoBehaviour
             playerData = JsonUtility.FromJson<Settings>(savePlayerData);
         } 
         sliderVolume.GetComponent<UnityEngine.UI.Slider>().value = playerData.volume;
+         
+          if (playerData.volume ==1f){
+            volume =0f;
+          } else if (playerData.volume ==0f){
+            volume=-80f;
+          } else if (playerData.volume <1f){
+            volume = Mathf.Lerp(-30f, 0f, playerData.volume);
+            
+          }
+          
+           audiolistener.SetFloat("Volume", volume);
+
         checkMusica.GetComponent<UnityEngine.UI.Toggle>().isOn = playerData.musica;
+
+           if (playerData.musica == false){
+            audiolistener.SetFloat("volumemusica", -80f);
+        } else if (playerData.musica == true){
+           audiolistener.SetFloat("volumemusica", 0f);
+        }
+
         checkEfeitoSonoro.GetComponent<UnityEngine.UI.Toggle>().isOn = playerData.efeitossonoros;
+
+        if (playerData.efeitossonoros == false){
+            audiolistener.SetFloat("volumeefeitossonoros", -80f);
+        } else if (playerData.efeitossonoros == true){
+           audiolistener.SetFloat("volumeefeitossonoros", 0f);
+        }
       
     }
 
@@ -68,13 +97,27 @@ public class ScriptDefinições : MonoBehaviour
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
        
-        audioManager.PlaySound(audioManager.buttonClickSound);
+        if (playerData.volume ==1f){
+            volume =0f;
+          } else if (playerData.volume ==0f){
+            volume=-80f;
+          } else if (playerData.volume <1f){
+            volume = Mathf.Lerp(-30f, 0f, playerData.volume);
+          }
+          
+           audiolistener.SetFloat("Volume", volume);
     }
 
       public void SalvarMusica(){
         playerData.musica = checkMusica.GetComponent<UnityEngine.UI.Toggle>().isOn;
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
+
+         if (playerData.musica == false){
+            audiolistener.SetFloat("volumemusica", -80f);
+        } else if (playerData.musica == true){
+           audiolistener.SetFloat("volumemusica", 0f);
+        }
        
     }
 
@@ -82,6 +125,12 @@ public class ScriptDefinições : MonoBehaviour
         playerData.efeitossonoros = checkEfeitoSonoro.GetComponent<UnityEngine.UI.Toggle>().isOn;
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
+
+        if (playerData.efeitossonoros == false){
+            audiolistener.SetFloat("volumeefeitossonoros", -80f);
+        } else if (playerData.efeitossonoros == true){
+           audiolistener.SetFloat("volumeefeitossonoros", 0f);
+        }
        
     }
 }
