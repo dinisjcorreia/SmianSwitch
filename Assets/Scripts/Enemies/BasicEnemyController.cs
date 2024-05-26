@@ -218,9 +218,7 @@ public class BasicEnemyController : MonoBehaviour
         isAttacking = true;
     }
 
-    public void pararAtaque(){
-        aliveAnim.SetBool("Attack", false);
-    }
+   
 
     private void UpdateAttackingState()
     {
