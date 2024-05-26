@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: bac589279887a4cb3bfac2ba1611a0e5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Niveis.unity
     guid: 0d88f867343fe4299bc7cd701712a76d
   - enabled: 1
@@ -23,7 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PVP.unity
     guid: eb02ca7f3ae534e67be841365af3e59b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CIdade.unity
     guid: 36da20d2a4184e84ca5f6d15bdb928e7
+  - enabled: 1
+    path: Assets/Scenes/Terceiro.unity
+    guid: e78edff65d2f8fc4c91632b48bd58480
   m_configObjects: {}

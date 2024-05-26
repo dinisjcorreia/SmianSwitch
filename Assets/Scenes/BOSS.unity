@@ -1175,6 +1175,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2011612969524986320, guid: 1e63559213f46f148991f32e86c2b553,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300002, guid: be658d3ccfe53144cafbd0301a62ee18,
+        type: 3}
     - target: {fileID: 2011612969524986321, guid: 1e63559213f46f148991f32e86c2b553,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1183,7 +1189,7 @@ PrefabInstance:
     - target: {fileID: 2011612969524986321, guid: 1e63559213f46f148991f32e86c2b553,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2011612969524986321, guid: 1e63559213f46f148991f32e86c2b553,
         type: 3}
@@ -1229,6 +1235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2011612969524986322, guid: 1e63559213f46f148991f32e86c2b553,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2011612969524986327, guid: 1e63559213f46f148991f32e86c2b553,
         type: 3}
@@ -2363,7 +2374,7 @@ GameObject:
   - component: {fileID: 1783562228}
   - component: {fileID: 1783562230}
   - component: {fileID: 1783562229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground(Invisible)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
