@@ -12,11 +12,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip[] musicClips;
     [SerializeField] public AudioClip jumpSound;
     [SerializeField] public AudioClip hitSound;
-    [SerializeField] public AudioClip punchSound;
     [SerializeField] public AudioClip swordSound;
     [SerializeField] public AudioClip dashSound;
     [SerializeField] public AudioClip buttonClickSound;
-    [SerializeField] public AudioClip subtitlesSound;
 
     private Dictionary<string, AudioClip> musicScenes = new Dictionary<string, AudioClip>();
     private void Awake()
@@ -53,6 +51,17 @@ public class AudioManager : MonoBehaviour
     {
         audioSourceOnce.loop = false;
         audioSourceOnce.PlayOneShot(audioClip);
+    }
+
+    public bool CheckPlaying()
+    {
+        if (audioSourceOnce.isPlaying)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

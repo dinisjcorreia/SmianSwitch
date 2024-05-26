@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,6 +44,8 @@ public class PlayerController : MonoBehaviour
     private bool ledgeDetected;
     private bool isDashing;
     private bool isOnPlatform;
+    private bool hasJumped;
+    private bool activatedWallSound;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -83,6 +86,12 @@ public class PlayerController : MonoBehaviour
     public GameObject plataforma;
     public GameObject menuPausa;
   
+    private AudioManager audioManager;
+
+    void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -110,6 +119,7 @@ public class PlayerController : MonoBehaviour
             CheckInput();
             CheckMovementDirection();
             UpdateAnimations();
+            UpdateSounds();
             CheckIfCanJump();
             CheckIfWallSliding();
             CheckJump();
@@ -276,7 +286,20 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
+        if(isGrounded)
+        {
+            hasJumped = false;
+        }
+
         isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
+
+        if(isTouchingWall)
+        {
+            activatedWallSound = false;
+        } else
+        {
+            activatedWallSound = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -375,7 +398,32 @@ public class PlayerController : MonoBehaviour
             isWalking = false;
         }
     }
+    private void UpdateSounds()
+    {
+        if (!isGrounded && !hasJumped && !audioManager.CheckPlaying())
+        {
+            Debug.Log("Playing hit sound - Jump");
+            audioManager.PlaySound(audioManager.hitSound);
+        }
 
+        if (isGrounded && hasJumped && !audioManager.CheckPlaying())
+        {
+            Debug.Log("Playing jump sound");
+            audioManager.PlaySound(audioManager.jumpSound);
+        }
+
+        if (isWallSliding && activatedWallSound && !audioManager.CheckPlaying())
+        {
+            Debug.Log("Playing hit sound - Wall");
+            audioManager.PlaySound(audioManager.hitSound);
+        }
+
+        if (isDashing)
+        {
+            Debug.Log("Playing dash sound");
+            audioManager.PlaySound(audioManager.dashSound);
+        }
+    }
     private void UpdateAnimations()
     {
         anim.SetBool("isWalking", isWalking);
@@ -436,11 +484,13 @@ public class PlayerController : MonoBehaviour
             if(isGrounded || (amountOfJumpsLeft > 0 && !isTouchingWall))
             {
                 NormalJump();
+                hasJumped = true;
             }
             else
             {
                 jumpTimer = jumpTimerSet;
                 isAttemptingToJump = true;
+                hasJumped = true;
             }
         }
 
