@@ -295,6 +295,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6d6675afb234cbfac4f1c99ea2fcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionImage: {fileID: 1685078752}
+  rotationSpeed: 500
+  maxRotationAngle: 360
+  scaleSpeed: 50
+  maxScale: 5000
+  transitionDuration: 0.01
   audiolistener: {fileID: 24100000, guid: 13ccb750ffc42034c80e06ab716251f2, type: 2}
 --- !u!1 &863940334
 GameObject:
@@ -597,6 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1115132977}
+  - component: {fileID: 1115132978}
   m_Layer: 0
   m_Name: DestroyProtect
   m_TagString: Untagged
@@ -620,6 +627,18 @@ Transform:
   - {fileID: 1901828684}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1115132978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115132976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7487ea8ae96fa4689457e1bb7d60aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1478189897
 GameObject:
   m_ObjectHideFlags: 0

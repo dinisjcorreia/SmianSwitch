@@ -23,14 +23,14 @@ public GameObject vidaminha5;
     {
         textComponent.text = string.Empty;
         StartDialogue();
-        vida1.SetActive(false);
+       /*  vida1.SetActive(false);
         vida2.SetActive(false);
         vida3.SetActive(false);
         vidaminha1.SetActive(false);
         vidaminha2.SetActive(false);
         vidaminha3.SetActive(false);
         vidaminha4.SetActive(false);
-        vidaminha5.SetActive(false);
+        vidaminha5.SetActive(false); */
         
     }
 
@@ -77,14 +77,14 @@ public GameObject vidaminha5;
         }
         else
         {
-            vida1.SetActive(true);
-            vida2.SetActive(true);
-            vida3.SetActive(true);
-            vidaminha1.SetActive(true);
-            vidaminha2.SetActive(true);
-            vidaminha3.SetActive(true);
-            vidaminha4.SetActive(true);
-            vidaminha5.SetActive(true);
+            // vida1.SetActive(true);
+            // vida2.SetActive(true);
+            // vida3.SetActive(true);
+            // vidaminha1.SetActive(true);
+            // vidaminha2.SetActive(true);
+            // vidaminha3.SetActive(true);
+            // vidaminha4.SetActive(true);
+            // vidaminha5.SetActive(true);
             gameObject.SetActive(false);
         }
     }

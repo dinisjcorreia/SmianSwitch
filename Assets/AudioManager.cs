@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         musicScenes.Add("MainMenu", musicClips[0]);
-        musicScenes.Add("Definições", musicClips[0]);
+        musicScenes.Add("DefiniÃ§Ãµes", musicClips[0]);
         musicScenes.Add("Primeiro", musicClips[1]);
         musicScenes.Add("Main", musicClips[2]);
         musicScenes.Add("Terceiro", musicClips[3]);
