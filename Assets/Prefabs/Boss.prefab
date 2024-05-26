@@ -164,6 +164,14 @@ MonoBehaviour:
     type: 3}
   deathBloodParticle: {fileID: 5096148057906189823, guid: 4a122dcc68153794295f6953dd91521e,
     type: 3}
+  player: {fileID: 0}
+  conversa: {fileID: 0}
+  pausa: {fileID: 0}
+  vida1: {fileID: 0}
+  vida2: {fileID: 0}
+  vida3: {fileID: 0}
+  vida4: {fileID: 0}
+  vida5: {fileID: 0}
 --- !u!1 &8298328898173943346
 GameObject:
   m_ObjectHideFlags: 0

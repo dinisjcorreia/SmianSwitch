@@ -7,8 +7,9 @@ public class BasicEnemyController : MonoBehaviour
     private enum State
     {
         Moving,
+        Attacking,
         Knockback,
-        Dead
+        Dead,
     }
 
     private State currentState;
@@ -24,50 +25,65 @@ public class BasicEnemyController : MonoBehaviour
         touchDamageCooldown,
         touchDamage,
         touchDamageWidth,
-        touchDamageHeight;
+        touchDamageHeight,
+        attackRange;
+
     [SerializeField]
     private Transform
         groundCheck,
         wallCheck,
         touchDamageCheck;
+
     [SerializeField]
-    private LayerMask 
+    private LayerMask
         whatIsGround,
         whatIsPlayer;
+
     [SerializeField]
     private Vector2 knockbackSpeed;
+
     [SerializeField]
     private GameObject
         hitParticle,
         deathChunkParticle,
         deathBloodParticle;
 
-    private float 
+    private float
         currentHealth,
         knockbackStartTime;
 
     private float[] attackDetails = new float[2];
 
-    private int 
+    private int
         facingDirection,
         damageDirection;
 
-    private Vector2 
+    private Vector2
         movement,
         touchDamageBotLeft,
         touchDamageTopRight;
 
     private bool
         groundDetected,
-        wallDetected;
+        wallDetected,
+        isAttacking;
 
     private GameObject alive;
     private Rigidbody2D aliveRb;
     private Animator aliveAnim;
 
-     private Vector2 previousPosition;
+    private Vector2 previousPosition;
     private Vector2 currentPosition;
     private bool isMovingRight;
+
+    public GameObject player;
+    private float speed = 3f;
+    private float distance;
+
+    public GameObject conversa;
+    public GameObject pausa;
+
+    public GameObject vida1, vida2, vida3, vida4, vida5;
 
     private void Start()
     {
@@ -79,14 +95,9 @@ public class BasicEnemyController : MonoBehaviour
         facingDirection = 1;
 
         previousPosition = transform.position;
+        SwitchState(State.Moving);
     }
 
- public GameObject player;
-    private float speed=3f;
-    private float distance;
-
-  public GameObject conversa;
-    public GameObject pausa;
     private void Update()
     {
         switch (currentState)
@@ -100,62 +111,59 @@ public class BasicEnemyController : MonoBehaviour
             case State.Dead:
                 UpdateDeadState();
                 break;
+            case State.Attacking:
+                UpdateAttackingState();
+                break;
         }
 
-        if (conversa.activeSelf==false && pausa.activeSelf==false){
+        if (conversa.activeSelf == false && pausa.activeSelf == false)
+        {
             distance = player.transform.position.x - transform.position.x;
-        Vector2 direction = player.transform.position - transform.position;
-        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-        
-          currentPosition = transform.position;
 
-        // Check if the object is moving to the right or left
-        if (currentPosition.x > previousPosition.x)
-        {
-            isMovingRight = true;
-           
-             StartCoroutine(moveresquerda());
-        }
-        else if (currentPosition.x < previousPosition.x)
-        {
-            isMovingRight = false;
-          
-            StartCoroutine(moverdireita());
-        }
-        else
-        {
-            // The object is not moving
-           
-        }
+            if (Mathf.Abs(distance) <= attackRange)
+            {
+                aliveAnim.SetBool("Attack", true);
+                EnterAttackingState();
+            }
+            else
+            {
+                Vector2 direction = player.transform.position - transform.position;
+                transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            }
 
-        // Update the previous position to the current position for the next frame
-        previousPosition = currentPosition;
+
+
+            currentPosition = transform.position;
+
+            if (currentPosition.x > previousPosition.x)
+            {
+                isMovingRight = true;
+                StartCoroutine(moveresquerda());
+            }
+            else if (currentPosition.x < previousPosition.x)
+            {
+                isMovingRight = false;
+                StartCoroutine(moverdireita());
+            }
+
+            previousPosition = currentPosition;
+
         }
-        
-      
-       
     }
 
     IEnumerator moverdireita()
     {
-    yield return new WaitForSeconds(0.2f);
-        alive.transform.rotation = Quaternion.Euler(0, 180 ,0);
+        yield return new WaitForSeconds(0.2f);
+        alive.transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
-     IEnumerator moveresquerda()
+    IEnumerator moveresquerda()
     {
-    yield return new WaitForSeconds(0.2f);
-        alive.transform.rotation = Quaternion.Euler(0, 0,0);
+        yield return new WaitForSeconds(0.2f);
+        alive.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    //--WALKING STATE--------------------------------------------------------------------------------
-
-    private void EnterMovingState()
-    {
-
-    }
-
-   
+    private void EnterMovingState() { }
 
     private void UpdateMovingState()
     {
@@ -164,23 +172,13 @@ public class BasicEnemyController : MonoBehaviour
 
         CheckTouchDamage();
 
-        if(!groundDetected || wallDetected)
+        if (!groundDetected || wallDetected)
         {
             Flip();
         }
-        else
-        {
-          /*   movement.Set(movementSpeed * facingDirection, aliveRb.velocity.y);
-            aliveRb.velocity = movement; */
-        }
     }
 
-    private void ExitMovingState()
-    {
-
-    }
-
-    //--KNOCKBACK STATE-------------------------------------------------------------------------------
+    private void ExitMovingState() { }
 
     private void EnterKnockbackState()
     {
@@ -192,7 +190,7 @@ public class BasicEnemyController : MonoBehaviour
 
     private void UpdateKnockbackState()
     {
-        if(Time.time >= knockbackStartTime + knockbackDuration)
+        if (Time.time >= knockbackStartTime + knockbackDuration)
         {
             SwitchState(State.Moving);
         }
@@ -203,8 +201,6 @@ public class BasicEnemyController : MonoBehaviour
         aliveAnim.SetBool("Knockback", false);
     }
 
-    //--DEAD STATE---------------------------------------------------------------------------------------
-
     private void EnterDeadState()
     {
         Instantiate(deathChunkParticle, alive.transform.position, deathChunkParticle.transform.rotation);
@@ -212,56 +208,67 @@ public class BasicEnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void UpdateDeadState()
-    {
+    private void UpdateDeadState() { }
 
+    private void ExitDeadState() { }
+
+    private void EnterAttackingState()
+    {
+        aliveAnim.SetBool("Attack", true);
+        isAttacking = true;
     }
 
-    private void ExitDeadState()
+    private void UpdateAttackingState()
     {
-
+        if (aliveAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            SwitchState(State.Moving);
+        }
     }
 
-    //--OTHER FUNCTIONS--------------------------------------------------------------------------------
-    public GameObject vida1;
-    public GameObject vida2;
-    public GameObject vida3;
+    private void ExitAttackingState()
+    {
+        aliveAnim.SetBool("Attack", false);
+    }
 
-    public GameObject vida4;
-    public GameObject vida5;
     private void Damage(float[] attackDetails)
     {
         currentHealth -= attackDetails[0];
         Debug.Log(currentHealth);
-        if (currentHealth < 10.0f){
-             vida5.SetActive(false);
-             vida4.SetActive(false);
+        if (currentHealth < 10.0f)
+        {
+            vida5.SetActive(false);
+            vida4.SetActive(false);
             vida3.SetActive(false);
             vida2.SetActive(false);
             vida1.SetActive(false);
-        } else if (currentHealth <= 10.0f){
-             vida5.SetActive(false);
-             vida4.SetActive(false);
-            vida3.SetActive(false);
-            vida2.SetActive(false);
-        } else if (currentHealth <= 20.0f){
-             vida4.SetActive(false);
+        }
+        else if (currentHealth <= 10.0f)
+        {
+            vida5.SetActive(false);
+            vida4.SetActive(false);
             vida3.SetActive(false);
             vida2.SetActive(false);
         }
-        else if (currentHealth <= 30.0f){
-            
+        else if (currentHealth <= 20.0f)
+        {
+            vida4.SetActive(false);
             vida3.SetActive(false);
             vida2.SetActive(false);
-        } else if (currentHealth <= 40.0f){
-            
-           
+        }
+        else if (currentHealth <= 30.0f)
+        {
+            vida3.SetActive(false);
+            vida2.SetActive(false);
+        }
+        else if (currentHealth <= 40.0f)
+        {
             vida2.SetActive(false);
         }
 
         Instantiate(hitParticle, alive.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
 
-        if(attackDetails[1] > alive.transform.position.x)
+        if (attackDetails[1] > alive.transform.position.x)
         {
             damageDirection = -1;
         }
@@ -270,28 +277,28 @@ public class BasicEnemyController : MonoBehaviour
             damageDirection = 1;
         }
 
-        //Hit particle
-
-        if(currentHealth > 0.0f)
+        if (currentHealth > 0.0f)
         {
             SwitchState(State.Knockback);
         }
-        else if(currentHealth <= 0.0f)
+        else if (currentHealth <= 0.0f)
         {
             SwitchState(State.Dead);
         }
     }
 
+
+
     private void CheckTouchDamage()
     {
-        if(Time.time >= lastTouchDamageTime + touchDamageCooldown)
+        if (Time.time >= lastTouchDamageTime + touchDamageCooldown)
         {
             touchDamageBotLeft.Set(touchDamageCheck.position.x - (touchDamageWidth / 2), touchDamageCheck.position.y - (touchDamageHeight / 2));
             touchDamageTopRight.Set(touchDamageCheck.position.x + (touchDamageWidth / 2), touchDamageCheck.position.y + (touchDamageHeight / 2));
 
             Collider2D hit = Physics2D.OverlapArea(touchDamageBotLeft, touchDamageTopRight, whatIsPlayer);
 
-            if(hit != null)
+            if (hit != null)
             {
                 lastTouchDamageTime = Time.time;
                 attackDetails[0] = touchDamage;
@@ -305,7 +312,6 @@ public class BasicEnemyController : MonoBehaviour
     {
         facingDirection *= -1;
         alive.transform.Rotate(0.0f, 180.0f, 0.0f);
-
     }
 
     private void SwitchState(State state)
@@ -321,6 +327,9 @@ public class BasicEnemyController : MonoBehaviour
             case State.Dead:
                 ExitDeadState();
                 break;
+            case State.Attacking:
+                ExitAttackingState();
+                break;
         }
 
         switch (state)
@@ -333,6 +342,9 @@ public class BasicEnemyController : MonoBehaviour
                 break;
             case State.Dead:
                 EnterDeadState();
+                break;
+            case State.Attacking:
+                EnterAttackingState();
                 break;
         }
 
@@ -354,5 +366,4 @@ public class BasicEnemyController : MonoBehaviour
         Gizmos.DrawLine(topRight, topLeft);
         Gizmos.DrawLine(topLeft, botLeft);
     }
-
 }
