@@ -10,6 +10,7 @@ TagManager:
   - Botao
   - Final
   - RopeSegment
+  - Audio
   layers:
   - Default
   - TransparentFX
