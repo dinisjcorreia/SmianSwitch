@@ -146,8 +146,8 @@ public class PlayerController : MonoBehaviour
   
             }
 
-              if (SceneManager.GetActiveScene().name == "Terceiro" ){
-                 if (gameObject.transform.position.y < -2){
+              if (SceneManager.GetActiveScene().name == "Terceiro 1" ){
+                 if (gameObject.transform.position.y < -1.65){
                 RestartScene();
             }
             
@@ -322,8 +322,8 @@ public class PlayerController : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Primeiro"){
                  SceneManager.LoadScene("Main");
             } else if (SceneManager.GetActiveScene().name == "Main"){
-                 SceneManager.LoadScene("Terceiro");
-            } else if (SceneManager.GetActiveScene().name == "Terceiro"){
+                 SceneManager.LoadScene("Terceiro 1");
+            } else if (SceneManager.GetActiveScene().name == "Terceiro 1"){
                  SceneManager.LoadScene("PVP");
             }
            
