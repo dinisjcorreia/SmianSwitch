@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ScriptDefinições : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    AudioManager audioManager;
     
 
     public class Settings
@@ -24,6 +24,11 @@ public class ScriptDefinições : MonoBehaviour
     public GameObject checkEfeitoSonoro;
 
      string saveFilePath;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
@@ -63,6 +68,7 @@ public class ScriptDefinições : MonoBehaviour
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
        
+        audioManager.PlaySound(audioManager.buttonClickSound);
     }
 
       public void SalvarMusica(){

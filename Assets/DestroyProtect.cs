@@ -12,18 +12,6 @@ public class DestroyProtect : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (!(SceneManager.GetActiveScene().name == "MainMenu") && !(SceneManager.GetActiveScene().name == "Definições"))
-        {
-            Destroy(gameObject);
-        }
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Update()
-    {
-        if (!(SceneManager.GetActiveScene().name == "MainMenu") && !(SceneManager.GetActiveScene().name == "Definições"))
-        {
-            Destroy(gameObject);
-        }
     }
 }
