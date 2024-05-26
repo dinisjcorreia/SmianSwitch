@@ -1209,7 +1209,7 @@ MonoBehaviour:
   punchSound: {fileID: 0}
   swordSound: {fileID: 0}
   dashSound: {fileID: 0}
-  buttonClickSound: {fileID: 8300000, guid: 710abe43f3adf184cbf0e9d8eb815afa, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: c57e799a06d012b4497547ce69e22684, type: 3}
   subtitlesSound: {fileID: 0}
 --- !u!1 &2126434607
 GameObject:
