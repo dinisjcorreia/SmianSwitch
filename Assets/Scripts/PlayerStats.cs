@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class PlayerStats : MonoBehaviour
         currentHealth = maxHealth;
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
+    public GameObject vidaminha1;
+    public GameObject vidaminha2;
+    public GameObject vidaminha3;
 
     public void DecreaseHealth(float amount)
     {
@@ -29,6 +33,16 @@ public class PlayerStats : MonoBehaviour
         if(currentHealth <= 0.0f)
         {
             Die();
+            vidaminha1.SetActive(false);
+            vidaminha2.SetActive(false);
+            vidaminha3.SetActive(false);
+
+        } else if (currentHealth <= 10.0f){
+            vidaminha1.SetActive(false);
+            vidaminha2.SetActive(false);
+        } else if (currentHealth <= 20.0f){
+             vidaminha1.SetActive(false);
+         
         }
     }
 
@@ -36,7 +50,6 @@ public class PlayerStats : MonoBehaviour
     {
         Instantiate(deathChunkParticle, transform.position, deathChunkParticle.transform.rotation);
         Instantiate(deathBloodParticle, transform.position, deathBloodParticle.transform.rotation);
-        GM.Respawn();
-        Destroy(gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

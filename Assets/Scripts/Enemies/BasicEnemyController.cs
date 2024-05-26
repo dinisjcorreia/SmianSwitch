@@ -85,6 +85,8 @@ public class BasicEnemyController : MonoBehaviour
     private float speed=3f;
     private float distance;
 
+  public GameObject conversa;
+    public GameObject pausa;
     private void Update()
     {
         switch (currentState)
@@ -99,7 +101,9 @@ public class BasicEnemyController : MonoBehaviour
                 UpdateDeadState();
                 break;
         }
-        distance = player.transform.position.x - transform.position.x;
+
+        if (conversa.activeSelf==false && pausa.activeSelf==false){
+            distance = player.transform.position.x - transform.position.x;
         Vector2 direction = player.transform.position - transform.position;
         transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
         
@@ -109,23 +113,25 @@ public class BasicEnemyController : MonoBehaviour
         if (currentPosition.x > previousPosition.x)
         {
             isMovingRight = true;
-            Debug.Log("Moving Right");
+           
              StartCoroutine(moveresquerda());
         }
         else if (currentPosition.x < previousPosition.x)
         {
             isMovingRight = false;
-            Debug.Log("Moving Left");
+          
             StartCoroutine(moverdireita());
         }
         else
         {
             // The object is not moving
-            Debug.Log("Not Moving");
+           
         }
 
         // Update the previous position to the current position for the next frame
         previousPosition = currentPosition;
+        }
+        
       
        
     }
@@ -217,10 +223,41 @@ public class BasicEnemyController : MonoBehaviour
     }
 
     //--OTHER FUNCTIONS--------------------------------------------------------------------------------
+    public GameObject vida1;
+    public GameObject vida2;
+    public GameObject vida3;
 
+    public GameObject vida4;
+    public GameObject vida5;
     private void Damage(float[] attackDetails)
     {
         currentHealth -= attackDetails[0];
+        Debug.Log(currentHealth);
+        if (currentHealth < 10.0f){
+             vida5.SetActive(false);
+             vida4.SetActive(false);
+            vida3.SetActive(false);
+            vida2.SetActive(false);
+            vida1.SetActive(false);
+        } else if (currentHealth <= 10.0f){
+             vida5.SetActive(false);
+             vida4.SetActive(false);
+            vida3.SetActive(false);
+            vida2.SetActive(false);
+        } else if (currentHealth <= 20.0f){
+             vida4.SetActive(false);
+            vida3.SetActive(false);
+            vida2.SetActive(false);
+        }
+        else if (currentHealth <= 30.0f){
+            
+            vida3.SetActive(false);
+            vida2.SetActive(false);
+        } else if (currentHealth <= 40.0f){
+            
+           
+            vida2.SetActive(false);
+        }
 
         Instantiate(hitParticle, alive.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
 
