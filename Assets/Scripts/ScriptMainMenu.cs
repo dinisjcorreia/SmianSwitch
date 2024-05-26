@@ -1,13 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
 public class ScriptMainMenu : MonoBehaviour
 {
+    public Image transitionImage;
+    public float rotationSpeed = 180f; // Speed of rotation in degrees per second
+    public float maxRotationAngle = 360f; // Maximum rotation angle
+    public float scaleSpeed = 0.5f; // Speed of scale increase per second
+    public float maxScale = 2f; // Maximum scale of the image
+
+    public float transitionDuration = 1f;
+
+    private bool transitionInProgress = false;
+
     public class Settings
     {
     public float volume;
@@ -26,6 +35,10 @@ private float volume;
 
     void Start()
     {
+        if (transitionImage != null)
+        {
+            transitionImage.gameObject.SetActive(false); // Initially hide the transition image
+        }
         saveFilePath = Application.persistentDataPath + "/Settings.json";
         playerData = new Settings();
         
@@ -68,25 +81,55 @@ private float volume;
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-   public void Sair(){
-         Application.Quit();
+    public void Sair()
+    {
+        Application.Quit();
     }
 
-
-
-     public void Definicoes(){
-        SceneManager.LoadScene("Definições");
+    public void Definicoes()
+    {
+        if (!transitionInProgress)
+        {
+            StartCoroutine(FadeOutAndLoadScene("Definições"));
+        }
     }
 
-     public void Jogar(){
-        SceneManager.LoadScene("Primeiro");
+    public void Jogar()
+    {
+        if (!transitionInProgress)
+        {
+            StartCoroutine(FadeOutAndLoadScene("Primeiro"));
+        }
     }
 
-    
+    private IEnumerator FadeOutAndLoadScene(string sceneName)
+    {
+        transitionInProgress = true;
+        transitionImage.gameObject.SetActive(true);
 
-   
+        float angle = 0f;
+        while (angle < maxRotationAngle)
+        {
+            float rotationAmount = rotationSpeed * Time.deltaTime;
+            transitionImage.rectTransform.Rotate(Vector3.forward, rotationAmount);
+            angle += Mathf.Abs(rotationAmount);
+
+            float scaleAmount = scaleSpeed * Time.deltaTime;
+            transitionImage.rectTransform.localScale += new Vector3(scaleAmount, scaleAmount, 0f);
+            transitionImage.rectTransform.localScale = Vector3.Min(transitionImage.rectTransform.localScale, new Vector3(maxScale, maxScale, 1f));
+
+            yield return null;
+        }
+
+        // Wait for the duration of the transition
+        yield return new WaitForSeconds(transitionDuration);
+
+        // Load the next scene
+        SceneManager.LoadScene(sceneName);
+
+        // Reset transition variables
+        transitionInProgress = false;
+    }
 }
-   
