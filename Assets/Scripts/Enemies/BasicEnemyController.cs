@@ -201,11 +201,16 @@ public class BasicEnemyController : MonoBehaviour
         aliveAnim.SetBool("Knockback", false);
     }
 
+    
+    public GameObject imagemfinal;
+
     private void EnterDeadState()
     {
         Instantiate(deathChunkParticle, alive.transform.position, deathChunkParticle.transform.rotation);
         Instantiate(deathBloodParticle, alive.transform.position, deathBloodParticle.transform.rotation);
         Destroy(gameObject);
+
+        imagemfinal.SetActive(true);
     }
 
     private void UpdateDeadState() { }
