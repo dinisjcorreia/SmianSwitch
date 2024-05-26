@@ -41,6 +41,7 @@ public class PlayerCombatController : MonoBehaviour
     public RuntimeAnimatorController macaco;
     public RuntimeAnimatorController pessoa;
     public RuntimeAnimatorController ninja;
+    public GameObject dialogo;
 
     private int i =0;
     private void CheckCombatInput()
@@ -49,8 +50,11 @@ public class PlayerCombatController : MonoBehaviour
         {
             if (combatEnabled)
             {
-                gotInput = true;
+                if (dialogo.activeSelf==false){
+                    gotInput = true;
                 lastInputTime = Time.time;
+                }
+                
                
             }
         }

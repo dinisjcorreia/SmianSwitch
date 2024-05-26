@@ -36,7 +36,12 @@ public class codigp : MonoBehaviour
         {
             // Garantir que a escala final seja exatamente a escala desejada
             transform.localScale = finalScale;
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(cena());
         }
+        }
+
+        IEnumerator cena(){
+            yield return new WaitForSeconds(2);
+            SceneManager.LoadScene("MainMenu");
         }
 }
